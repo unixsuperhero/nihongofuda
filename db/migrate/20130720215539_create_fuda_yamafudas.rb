@@ -1,6 +1,6 @@
 class CreateFudaYamafudas < ActiveRecord::Migration
   def change
-    create_table :fuda_yamafudas do |t|
+    create_table :fuda_yamafuda do |t|
       t.integer :fuda_id
       t.integer :yamafuda_id
 

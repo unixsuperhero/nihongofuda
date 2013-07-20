@@ -1,6 +1,6 @@
 class CreateFudas < ActiveRecord::Migration
   def change
-    create_table :fudas do |t|
+    create_table :fuda do |t|
       t.text :front
       t.text :back
 
