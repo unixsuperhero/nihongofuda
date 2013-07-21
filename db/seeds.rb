@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-hira, kata, kanji = %w{ hiragana katakana kanji }.map{|name| Yamafuda.create(name: name) }
+hira, kata = %w{ hiragana katakana }.map{|name| Yamafuda.create(name: name) }
 
 hira.fuda = {
    a: 'あ',     i: 'い',     u: 'う',    e: 'え',    o: 'お',
@@ -37,12 +37,18 @@ kata.fuda = {
 }.map{ |back, front| Fuda.create(front: front, back: back) }
 
 
-#
-#kanji = Kanji.where.not(grade: nil, frequency: nil).order(:grade, :strokes, :frequency)
-#kanji.map{|k| f=Fuda.create(front: k.literal, back: "#{k.kun}\n#{k.on}\n#{k.meanings}"); f.kanji << k; f.yamafuda = [Yamafuda.find(3)]; f }
-#
-#grades = [1,2,3,4,5,6,8,9,10]
-#grades.map{|grade|
-#  yamafuda = Yamafuda.create(name: "kanji grade #{grade}")
-#  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda)
-#}
+require './public/build_kanji'
+read_kanjidic './public/kanjidic.xml'
+
+kanji_characters = Kanji.where.not(grade: nil, frequency: nil).order(:grade, :strokes, :frequency)
+kanji_characters.map{|k|
+  f = Fuda.create(front: k.literal, back: "#{k.kun}\n#{k.on}\n#{k.meanings}")
+  f.kanji << k
+  f
+}
+
+grades = [1,2,3,4,5,6,8,9,10]
+grades.map{|grade|
+  yamafuda = Yamafuda.create(name: "kanji grade #{grade}")
+  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda)
+}
