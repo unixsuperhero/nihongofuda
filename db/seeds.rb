@@ -54,11 +54,11 @@ grades.map{|grade|
   yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda) if yamafuda.fuda.blank?
   yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} kun-only")
   yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
-    Fuda.find_or_create_by(front: k.literal, back: k.kun).tap{|f| f.kanji << k }
+    Fuda.find_or_create_by(front: k.literal, back: k.kun).tap{|f| f.kanji << k unless f.kanji.include?(k) }
   } if yamafuda.fuda.blank?
   yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} meanings")
   yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
-    Fuda.find_or_create_by(front: k.literal, back: k.meanings).tap{|f| f.kanji << k }
+    Fuda.find_or_create_by(front: k.literal, back: k.meanings).tap{|f| f.kanji << k unless f.kanji.include?(k) }
   } if yamafuda.fuda.blank?
 }
 
