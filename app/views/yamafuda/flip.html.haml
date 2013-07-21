@@ -8,8 +8,8 @@
       .span1 &nbsp;
     .row
       .text-center
-        %h1= simple_format fuda.front
-        %h2= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
+        .front= simple_format fuda.front
+        -# %h2= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
 
 = link_to cookies[:random_url] do
   .fuda
@@ -20,5 +20,5 @@
       .span1 &nbsp;
     .row
       .text-center
-        %h3= simple_format fuda.back
+        .back= simple_format fuda.back
 

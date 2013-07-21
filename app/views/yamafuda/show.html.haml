@@ -9,8 +9,8 @@
         .span1 &nbsp;
       .row
         .text-center
-          %h1= simple_format fuda.front
-          %h2= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
+          .front= simple_format fuda.front
+          -# .radicals= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
       .row
         .pull-right Front
 
@@ -22,7 +22,7 @@
         .span1 &nbsp;
       .row
         .text-center
-          %h3= simple_format fuda.back
+          .back= simple_format fuda.back
       .row
         .pull-right Back
 
