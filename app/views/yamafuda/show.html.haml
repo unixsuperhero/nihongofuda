@@ -1,0 +1,27 @@
+
+- yamafuda.fuda.each do |fuda|
+  .row
+    .span5.fuda
+      .row
+        .pull-right
+          %h4= yamafuda.name
+      .row
+        .span1 &nbsp;
+      .row
+        .text-center
+          %h1= simple_format fuda.front
+      .row
+        .pull-right Front
+
+    .span5.fuda
+      .row
+        .pull-right
+          %h4= yamafuda.name
+      .row
+        .span1 &nbsp;
+      .row
+        .text-center
+          %h3= simple_format fuda.back
+      .row
+        .pull-right Back
+

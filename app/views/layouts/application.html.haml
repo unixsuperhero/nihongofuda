@@ -1,0 +1,23 @@
+!!! 5
+%html>
+  %head
+    %title NihongoFuda - Japanese Flashcards
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .container
+      .row
+        .span3
+          %nav
+            %h3 Yamafuda (Decks)
+            %ul
+              - all_yamafuda.each do |yf|
+                %li
+                  = yf.name
+                  = link_to "(view)", yamafuda_show_url(yf.name)
+                  = link_to "(random)", yamafuda_random_url(yf.name)
+        .span9
+          %h3 Fuda (Cards)
+          = yield
+

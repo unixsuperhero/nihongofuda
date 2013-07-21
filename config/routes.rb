@@ -3,6 +3,7 @@ Rails4Base::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get 'random' => 'yamafuda#random', as: :random
+  get 'yamafuda/:name' => 'yamafuda#show', as: :yamafuda_show
   get 'yamafuda/:name/random' => 'yamafuda#random', as: :yamafuda_random
   get 'yamafuda/:name/:id' => 'yamafuda#front', as: :yamafuda_front
   get 'yamafuda/:name/:id/flip' => 'yamafuda#flip', as: :yamafuda_flip
