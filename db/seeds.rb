@@ -39,6 +39,7 @@ kata.fuda = {
 
 require './public/build_kanji'
 read_kanjidic './public/kanjidic.xml'
+read_radfilex './public/radkfilex'
 
 kanji_characters = Kanji.where.not(grade: nil, frequency: nil).order(:grade, :strokes, :frequency)
 kanji_characters.map{|k|

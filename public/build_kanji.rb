@@ -12,17 +12,6 @@ require 'rexml/streamlistener'
 #$kanjis = {}
 #$radicals = {}
 #
-#class Radical
-#  attr_accessor :strokes, :unicode, :kanjis
-#
-#  def initialize
-#    @kanjis = []
-#  end
-#
-#  def to_s
-#    @unicode
-#  end
-#end
 
 #class Kanji
 #  attr_accessor :unicode
@@ -94,34 +83,39 @@ def read_kanjidic(file)
   REXML::Document.parse_stream(File.open(file), KanjidicReader.new)
 end
 
-#def read_radfilex(file)
-#  num = 1
-#  curr = nil
-#  File.open(file) do |fd|
-#    fd.each_line do |line|
-#      if line[0] == '#' or line.chomp.size == 0 then
-#        next
-#      end
-#
-#      if line[0] == '$' then
-#        parts = line.split
-#        curr = Radical.new
-#        curr.unicode = parts[1]
-#        curr.strokes = parts[2].to_i
-#        num += 1
-#        $radicals[curr.unicode] = curr
-#      elsif curr
-#        line.chomp.each_char do |c|
-#          kanji = $kanjis[c]
-#          if kanji then
-#            curr.kanjis << kanji
-#            kanji.radicals << curr
-#          end
-#        end
-#      end
-#    end
-#  end
-#end
+def read_radfilex(file)
+  num = 1
+  curr = nil
+  File.open(file) do |fd|
+    fd.each_line do |line|
+      if line[0] == '#' or line.chomp.size == 0 then
+        next
+      end
+
+      if line[0] == '$' then
+        parts = line.split
+        curr = Radical.new
+        curr.literal = parts[1]
+        curr.strokes = parts[2].to_i
+        kanji = Kanji.find_by(literal: parts[1])
+        if kanji then
+          curr.original_kanji_id = kanji.id
+          curr.meaning = kanji.meanings
+        end
+        curr.save
+        num += 1
+      elsif curr
+        line.chomp.each_char do |c|
+          kanji = Kanji.find_by(literal: c)
+          if kanji then
+            curr.kanji << kanji
+            #kanji.radicals << curr
+          end
+        end
+      end
+    end
+  end
+end
 
 # Read arguments
 #kanjidic2 = ARGV[0]
