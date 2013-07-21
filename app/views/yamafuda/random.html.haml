@@ -1,0 +1,20 @@
+
+- if random_card.blank?
+  = link_to cookies[:random_url] do
+    .fuda
+      .row.text-center
+        The '
+        = yamafuda.name
+        ' deck doesn't have any cards
+- else
+  = link_to yamafuda_flip_url(name: yamafuda.name, id: random_card.id) do
+    .fuda
+      .row
+        .pull-right
+          %h4= yamafuda.name
+      .row
+        .span1 &nbsp;
+      .row
+        .text-center
+          %h2= simple_format random_card.front
+

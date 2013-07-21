@@ -2,6 +2,11 @@ Rails4Base::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  get 'random' => 'yamafuda#random', as: :random
+  get 'yamafuda/:name/random' => 'yamafuda#random', as: :yamafuda_random
+  get 'yamafuda/:name/:id' => 'yamafuda#front', as: :yamafuda_front
+  get 'yamafuda/:name/:id/flip' => 'yamafuda#flip', as: :yamafuda_flip
+
   # You can have the root of your site routed with "root"
   root 'application#index'
 
@@ -39,7 +44,7 @@ Rails4Base::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

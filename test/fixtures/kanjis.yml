@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  literal: MyString
+  'on': MyString
+  kun: MyString
+  meanings: MyString
+  frequency: 1
+  grade: 1
+
+two:
+  literal: MyString
+  'on': MyString
+  kun: MyString
+  meanings: MyString
+  frequency: 1
+  grade: 1
