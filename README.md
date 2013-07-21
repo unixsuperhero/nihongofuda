@@ -7,6 +7,10 @@ NihongoFuda (Japanese Cards)
 
 A rails website for quizzing yourself with flash cards.  The database is prepped for Japanese writing systems.
 
+# Try It
+
+http://nihongofuda.herokuapp.com
+
 # Setup
 
     git clone git@github.com:unixsuperhero/nihongofuda.git
