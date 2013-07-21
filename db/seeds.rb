@@ -52,6 +52,14 @@ grades = [1,2,3,4,5,6,8,9,10]
 grades.map{|grade|
   yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade}")
   yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda) if yamafuda.fuda.blank?
+  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} kun-only")
+  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
+    Fuda.find_or_create_by(front: k.literal, back: k.kun).tap{|f| f.kanji << k }
+  } if yamafuda.fuda.blank?
+  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} meanings")
+  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
+    Fuda.find_or_create_by(front: k.literal, back: k.meanings).tap{|f| f.kanji << k }
+  } if yamafuda.fuda.blank?
 }
 
 rads = Yamafuda.find_or_create_by(name: 'radicals')
