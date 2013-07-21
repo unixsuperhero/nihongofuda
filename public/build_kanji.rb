@@ -52,12 +52,17 @@ class KanjidicReader
       @curr.kun = @curr.kun_arr.join(', ')
       @curr.on = @curr.on_arr.join(', ')
       @curr.meanings = @curr.meaning_arr.join(', ')
-      @curr.save
+      @curr.save if @curr.new_record?
     end
   end
 
   def text(tag_body)
     if @curr_tag == "literal" then
+      new_curr = Kanji.find_or_initialize_by(literal: tag_body)
+      new_curr.on_arr = @curr.on_arr
+      new_curr.kun_arr = @curr.kun_arr
+      new_curr.meaning_arr = @curr.meaning_arr
+      @curr = new_curr
       @curr.literal = tag_body
     elsif @curr_tag == "freq" then
       @curr.frequency = tag_body
@@ -94,21 +99,21 @@ def read_radfilex(file)
 
       if line[0] == '$' then
         parts = line.split
-        curr = Radical.new
-        curr.literal = parts[1]
-        curr.strokes = parts[2].to_i
+        curr = Radical.find_or_initialize_by(literal: parts[1], strokes: parts[2].to_i)
+        #curr.literal = parts[1]
+        #curr.strokes = parts[2].to_i
         kanji = Kanji.find_by(literal: parts[1])
         if kanji then
           curr.original_kanji_id = kanji.id
           curr.meaning = kanji.meanings
         end
-        curr.save
+        curr.save if curr.new_record?
         num += 1
       elsif curr
         line.chomp.each_char do |c|
           kanji = Kanji.find_by(literal: c)
           if kanji then
-            curr.kanji << kanji
+            curr.kanji << kanji unless curr.kanji.include?(kanji)
             #kanji.radicals << curr
           end
         end
