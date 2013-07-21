@@ -53,3 +53,21 @@ grades.map{|grade|
   yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade}")
   yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda) if yamafuda.fuda.blank?
 }
+
+rads = Yamafuda.find_or_create_by(name: 'radicals')
+radkun = Yamafuda.find_or_create_by(name: 'radicals kun-only')
+radmean = Yamafuda.find_or_create_by(name: 'radical meanings')
+rads.fuda = Radical.all.map{|r|
+  k = r.original_kanji || Kanji.new
+  f = Fuda.find_or_create_by(front: r.literal, back: "#{k.kun}\n#{k.on}\n#{k.meanings}")
+  kf = Fuda.find_or_create_by(front: r.literal, back: k.kun)
+  mf = Fuda.find_or_create_by(front: r.literal, back: k.meanings)
+  if r.original_kanji.present?
+    f.kanji << r.original_kanji unless f.kanji.include?(r.original_kanji)
+    kf.kanji << r.original_kanji unless kf.kanji.include?(r.original_kanji)
+    mf.kanji << r.original_kanji unless mf.kanji.include?(r.original_kanji)
+  end
+  radkun.fuda << kf unless radkun.fuda.include?(kf)
+  radmean.fuda << mf unless radmean.fuda.include?(mf)
+  f
+}

@@ -17,4 +17,5 @@
       .row
         .text-center
           %h1= simple_format random_card.front
+          %h2= random_card.kanji.flat_map(&:radicals).map(&:literal).join(' ')
 
