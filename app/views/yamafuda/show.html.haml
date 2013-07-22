@@ -1,30 +1,31 @@
 
-%h3= yamafuda.name
+- cache [yamafuda, 'show'] do
+  %h3= yamafuda.name
 
-- yamafuda.all_fuda.each do |fuda|
-  .row
-    .span5.fuda
-      .row
-        .pull-right
-          %h4= yamafuda.name
-      .row
-        .span1 &nbsp;
-      .row
-        .text-center
-          .front= simple_format fuda.front
-          -# .radicals= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
-      .row
-        .pull-right Front
+  - yamafuda.all_fuda.each do |fuda|
+    .row
+      .span5.fuda
+        .row
+          .pull-right
+            %h4= yamafuda.name
+        .row
+          .span1 &nbsp;
+        .row
+          .text-center
+            .front= simple_format fuda.front
+            -# .radicals= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
+        .row
+          .pull-right Front
 
-    .span5.fuda
-      .row
-        .pull-right
-          %h4= yamafuda.name
-      .row
-        .span1 &nbsp;
-      .row
-        .text-center
-          .back= simple_format fuda.back
-      .row
-        .pull-right Back
+      .span5.fuda
+        .row
+          .pull-right
+            %h4= yamafuda.name
+        .row
+          .span1 &nbsp;
+        .row
+          .text-center
+            .back= simple_format fuda.back
+        .row
+          .pull-right Back
 
