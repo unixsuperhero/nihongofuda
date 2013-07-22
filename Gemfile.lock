@@ -49,6 +49,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    dalli (2.6.4)
     debugger (1.6.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -81,6 +82,7 @@ GEM
     markdown-rails (0.2.1)
       rails
       rdiscount (>= 1.6.8, < 2.0)
+    memcachier (0.0.2)
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.5)
@@ -169,6 +171,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  dalli
   debugger
   decent_exposure
   devise!
@@ -176,6 +179,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   markdown-rails
+  memcachier
   pg
   pry
   pry-rails

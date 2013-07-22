@@ -81,5 +81,9 @@ end
 gem 'pry'
 gem 'pry-rails'
 
+# Caching
+gem 'dalli'
+gem 'memcachier'
+
 # Essentials
 gem 'decent_exposure'
