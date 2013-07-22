@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  yamafuda_id: 1
+  child_yamafuda_id: 1
+
+two:
+  yamafuda_id: 1
+  child_yamafuda_id: 1

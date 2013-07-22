@@ -38,29 +38,44 @@ kata.fuda = {
 
 
 require './public/build_kanji'
-read_kanjidic './public/kanjidic.xml'
-read_radfilex './public/radkfilex'
+read_kanjidic './public/kanjidic.xml' unless Kanji.count > 13100
+read_radfilex './public/radkfilex' unless Radical.count > 213
+
+yamafudas = [1,2,3,4,5,6,8,9,10].inject({}.with_indifferent_access) { |h,g|
+  h.merge(
+    "#{g}"      => Yamafuda.find_or_create_by(name: "kanji grade #{g}"),
+    "#{g} kun"  => Yamafuda.find_or_create_by(name: "kanji grade #{g} kun-only"),
+    "#{g}mean"  => Yamafuda.find_or_create_by(name: "kanji grade #{g} meanings")
+  )
+}
 
 kanji_characters = Kanji.where.not(grade: nil, frequency: nil).order(:grade, :strokes, :frequency)
 kanji_characters.map{|k|
   f = Fuda.find_or_create_by(front: k.literal, back: "#{k.kun}\n#{k.on}\n#{k.meanings}")
-  f.kanji << k unless f.kanji.include?(k)
+  fk= Fuda.find_or_create_by(front: k.literal, back: "#{k.kun}")
+  fm= Fuda.find_or_create_by(front: k.literal, back: "#{k.meanings}")
+   f.kanji << k unless  f.kanji.include?(k)
+  fk.kanji << k unless fk.kanji.include?(k)
+  fm.kanji << k unless fm.kanji.include?(k)
+  yamafudas["#{k.grade}"    ].fuda << f  unless yamafudas["#{k.grade}"    ].fuda.include?(f)
+  yamafudas["#{k.grade} kun"].fuda << fk unless yamafudas["#{k.grade} kun"].fuda.include?(fk)
+  yamafudas["#{k.grade}mean"].fuda << fm unless yamafudas["#{k.grade}mean"].fuda.include?(fm)
   f
-}
+} unless yamafudas.all?{|g,y| y.fuda.count > 5 }
 
-grades = [1,2,3,4,5,6,8,9,10]
-grades.map{|grade|
-  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade}")
-  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda) if yamafuda.fuda.blank?
-  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} kun-only")
-  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
-    Fuda.find_or_create_by(front: k.literal, back: k.kun).tap{|f| f.kanji << k unless f.kanji.include?(k) }
-  } if yamafuda.fuda.blank?
-  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} meanings")
-  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
-    Fuda.find_or_create_by(front: k.literal, back: k.meanings).tap{|f| f.kanji << k unless f.kanji.include?(k) }
-  } if yamafuda.fuda.blank?
-}
+#grades = [1,2,3,4,5,6,8,9,10]
+#grades.map{|grade|
+#  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade}")
+#  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).flat_map(&:fuda) if yamafuda.fuda.blank?
+#  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} kun-only")
+#  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
+#    Fuda.find_or_create_by(front: k.literal, back: k.kun).tap{|f| f.kanji << k unless f.kanji.include?(k) }
+#  } if yamafuda.fuda.blank?
+#  yamafuda = Yamafuda.find_or_create_by(name: "kanji grade #{grade} meanings")
+#  yamafuda.fuda = Kanji.where(grade: grade).order(:grade, :strokes, :frequency).map{|k|
+#    Fuda.find_or_create_by(front: k.literal, back: k.meanings).tap{|f| f.kanji << k unless f.kanji.include?(k) }
+#  } if yamafuda.fuda.blank?
+#}
 
 rads = Yamafuda.find_or_create_by(name: 'radicals')
 radkun = Yamafuda.find_or_create_by(name: 'radicals kun-only')
@@ -78,4 +93,4 @@ rads.fuda = Radical.all.map{|r|
   radkun.fuda << kf unless radkun.fuda.include?(kf)
   radmean.fuda << mf unless radmean.fuda.include?(mf)
   f
-}
+} unless [rads.fuda.count, radkun.fuda.count, radmean.fuda.count].all?{|r| r > 213 }

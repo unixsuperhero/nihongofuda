@@ -2,8 +2,8 @@ class YamafudaController < ApplicationController
   before_action :track_random_url, only: :random
 
   expose(:fuda) { yamafuda.fuda.find_by(id: params[:id]) }
-  expose(:yamafuda) { Yamafuda.find_by(name: params[:name]) || Yamafuda.usable.sample }
-  expose(:random_card) { yamafuda && yamafuda.fuda.sample }
+  expose(:yamafuda) { Yamafuda.find_by(name: params[:name]) || Yamafuda.usable.order('random()').first }
+  expose(:random_card) { yamafuda && Fuda.where(id: yamafuda.fuda_ids).order('random()').first }
 
   private
 

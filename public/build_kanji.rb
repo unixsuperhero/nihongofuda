@@ -64,6 +64,12 @@ class KanjidicReader
       new_curr.meaning_arr = @curr.meaning_arr
       @curr = new_curr
       @curr.literal = tag_body
+    elsif @curr_tag == "jlpt" then
+      unless @curr.new_record?
+        temp = Kanji.find(@curr.id)
+        temp.update(jlpt: tag_body)
+      end
+      @curr.jlpt = tag_body
     elsif @curr_tag == "freq" then
       @curr.frequency = tag_body
     elsif @curr_tag == "stroke_count" then
