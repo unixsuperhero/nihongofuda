@@ -1,17 +1,17 @@
 
-%h3 #{yamafuda.name} Random
+%h3 #{random_yamafuda.name} Random
 
 - if random_card.blank?
   = link_to cookies[:random_url] do
     .fuda
       .row.text-center
-        The '#{yamafuda.name}' deck doesn't have any cards
+        The '#{random_yamafuda.name}' deck doesn't have any cards
 - else
-  = link_to yamafuda_flip_url(name: yamafuda.name, id: random_card.id) do
+  = link_to yamafuda_flip_url(name: random_yamafuda.name, id: random_card.id) do
     .fuda
       .row
         .pull-right
-          %h4= yamafuda.name
+          %h4= random_yamafuda.name
       .row
         .span1 &nbsp;
       .row
