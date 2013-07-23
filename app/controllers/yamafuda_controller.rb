@@ -11,8 +11,8 @@ class YamafudaController < ApplicationController
 
   expose(:fuda) { yamafuda.fuda.find_by(id: params[:id]) }
 
-  def show
-    render layout: nil and return if request.xhr?
+  def continuous_show
+    render layout: nil
   end
 
   private

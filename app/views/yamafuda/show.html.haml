@@ -1,34 +1,8 @@
 
 -# cache [yamafuda, 'show', params[:page] || '0'] do
-- unless request.xhr?
-  %h3= yamafuda.name
-  .show_page 1
-  .show_link= yamafuda_show_url(yamafuda.name)
+%h3= yamafuda.name
+.show_page 1
+.show_link= yamafuda_continuous_show_url(yamafuda.name)
 
-- fuda_page.each do |fuda|
-  .row
-    .span5.fuda
-      .row
-        .pull-right
-          %h4= yamafuda.name
-      .row
-        .span1 &nbsp;
-      .row
-        .text-center
-          .front= simple_format fuda.front
-          -# .radicals= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
-      .row
-        .pull-right Front
-
-    .span5.fuda
-      .row
-        .pull-right
-          %h4= yamafuda.name
-      .row
-        .span1 &nbsp;
-      .row
-        .text-center
-          .back= simple_format fuda.back
-      .row
-        .pull-right Back
+= render 'full_fuda', locals: {fuda_page: fuda_page}
 
