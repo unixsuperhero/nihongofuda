@@ -96,6 +96,7 @@ rads.fuda = Radical.all.map{|r|
 } unless [rads.fuda.count, radkun.fuda.count, radmean.fuda.count].all?{|r| r > 213 }
 
 require './db/okurigana'
+load_okurigana
 # ok = Yamafuda.find_or_create_by(name: 'okurigana yamafuda')
 # 
 # ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).inject({}){|p,k|
