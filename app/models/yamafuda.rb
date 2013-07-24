@@ -18,6 +18,6 @@ class Yamafuda < ActiveRecord::Base
   end
 
   def all_fuda
-    Fuda.where(id: fuda_ids)
+    Fuda.where(id: fuda_ids).order(:id)
   end
 end
