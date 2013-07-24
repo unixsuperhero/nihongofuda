@@ -95,19 +95,20 @@ rads.fuda = Radical.all.map{|r|
   f
 } unless [rads.fuda.count, radkun.fuda.count, radmean.fuda.count].all?{|r| r > 213 }
 
-ok = Yamafuda.find_or_create_by(name: 'okurigana yamafuda')
-
-ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).inject({}){|p,k|
-  k.kun.split(/\s*,\s*/).keep_if{|s| s =~ /\./}.each{|s|
-    parts = s.split('.')
-    puts "Not String: #{k.literal.inspect} : #{parts.last.inspect}" unless k.literal.is_a?(String) && parts.last.is_a?(String)
-    f = k.literal.to_s + parts.last.to_s
-    p[f] ||= {kun: []}.with_indifferent_access
-    p[f][:kun] << s
-    p[f][:meaning] = k.meanings
-    p[f][:kanji] = k.id
-  }
-  p
-}.map{|f,b|
-  Fuda.create(front: f, back: "#{b[:kun].join(', ')}\n#{b[:meaning]}").tap{|fuda| fuda.kanji_ids = Array(b[:kanji]) }
-}
+require './db/okurigana'
+# ok = Yamafuda.find_or_create_by(name: 'okurigana yamafuda')
+# 
+# ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).inject({}){|p,k|
+#   k.kun.split(/\s*,\s*/).keep_if{|s| s =~ /\./}.each{|s|
+#     parts = s.split('.')
+#     puts "Not String: #{k.literal.inspect} : #{parts.last.inspect}" unless k.literal.is_a?(String) && parts.last.is_a?(String)
+#     f = k.literal.to_s + parts.last.to_s
+#     p[f] ||= {kun: []}.with_indifferent_access
+#     p[f][:kun] << s
+#     p[f][:meaning] = k.meanings
+#     p[f][:kanji] = k.id
+#   }
+#   p
+# }.map{|f,b|
+#   Fuda.create(front: f, back: "#{b[:kun].join(', ')}\n#{b[:meaning]}").tap{|fuda| fuda.kanji_ids = Array(b[:kanji]) }
+# }
