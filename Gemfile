@@ -87,3 +87,6 @@ gem 'memcachier'
 
 # Essentials
 gem 'decent_exposure'
+
+# Other
+gem 'httparty'
