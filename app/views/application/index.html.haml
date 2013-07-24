@@ -2,6 +2,18 @@
 %h3 To Do
 
 :markdown
+  ### Higher Priority
+
+  * Decks
+      * Kanji
+          * with okurigana (with part of speech)
+            * Kanji.where.not(grade: [8,9,10,nil], frequency: nil).where("kun LIKE '%.%'")
+          * with specific particles
+          * look similar (place them on same card comma separated, and the defintions comma separated)
+  * Add IDs to the cards...for IDing them later
+  * Add Comments to create notes on the fly...(on homepage)
+      * polymorphic table
+
   #### Add Decks
 
   * Particles
