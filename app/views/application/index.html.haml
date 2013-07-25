@@ -1,43 +1,46 @@
 
-%h3 To Do
+- unless params.has_key?(:josh)
+  review japanese...hiragana/katakana/kanji...
+- else
+  %h3 To Do
 
-:markdown
-  ### Higher Priority
+  :markdown
+    ### Higher Priority
 
-  * Decks
-      * Kanji
-          * with okurigana (with part of speech)
-            * Kanji.where.not(grade: [8,9,10,nil], frequency: nil).where("kun LIKE '%.%'")
-          * with specific particles
-          * look similar (place them on same card comma separated, and the defintions comma separated)
-  * Add IDs to the cards...for IDing them later
-  * Add Comments to create notes on the fly...(on homepage)
-      * polymorphic table
+    * Decks
+        * Kanji
+            * with okurigana (with part of speech)
+              * Kanji.where.not(grade: [8,9,10,nil], frequency: nil).where("kun LIKE '%.%'")
+            * with specific particles
+            * look similar (place them on same card comma separated, and the defintions comma separated)
+    * Add IDs to the cards...for IDing them later
+    * Add Comments to create notes on the fly...(on homepage)
+        * polymorphic table
 
-  #### Add Decks
+    #### Add Decks
 
-  * Particles
-  * Verb Conjugation
-  * (More grammar...)
+    * Particles
+    * Verb Conjugation
+    * (More grammar...)
 
-  * Vocabulary
-  * Compound Kanji 
-    * [Use Anki to Master Japanese: Part 1 - Kanji](http://japaneselevelup.com/how-to-use-anki-to-master-japanese-part-1-kanji/)  
-    Use japanese 'keywords' (compounds) to learn the readings, not kun/on.
-  * Sentences
+    * Vocabulary
+    * Compound Kanji 
+      * [Use Anki to Master Japanese: Part 1 - Kanji](http://japaneselevelup.com/how-to-use-anki-to-master-japanese-part-1-kanji/)  
+      Use japanese 'keywords' (compounds) to learn the readings, not kun/on.
+    * Sentences
 
-  #### Features
+    #### Features
 
-  * Introduce Subjects (eg. Japanese is the only subject right now)
-  * Group Fuda together.  (Add "Similar Fuda" link to each card.)
-      * Similar Appearance
-      * Similar Meaning
-  * Social learning
-      * Comment on cards/decks
-      * Like cards/decks
-      * Tagging (makes decks)
-          * Have official decks, and then spin-off tags/decks.
-      * Let others make cards/decks
-  * Display cards in a grid (similar fuda), click on one to flip only that card
-  * Randomize which side of card is displayed (Kanji vs. Readings/Meaning)
+    * Introduce Subjects (eg. Japanese is the only subject right now)
+    * Group Fuda together.  (Add "Similar Fuda" link to each card.)
+        * Similar Appearance
+        * Similar Meaning
+    * Social learning
+        * Comment on cards/decks
+        * Like cards/decks
+        * Tagging (makes decks)
+            * Have official decks, and then spin-off tags/decks.
+        * Let others make cards/decks
+    * Display cards in a grid (similar fuda), click on one to flip only that card
+    * Randomize which side of card is displayed (Kanji vs. Readings/Meaning)
 
