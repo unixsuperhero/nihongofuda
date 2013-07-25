@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  literal: MyString
+  reading: MyString
+  meanings: MyString
+
+two:
+  literal: MyString
+  reading: MyString
+  meanings: MyString

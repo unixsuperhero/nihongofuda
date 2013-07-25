@@ -95,8 +95,8 @@ rads.fuda = Radical.all.map{|r|
   f
 } unless [rads.fuda.count, radkun.fuda.count, radmean.fuda.count].all?{|r| r > 213 }
 
-require './db/okurigana'
-load_okurigana
+#require './db/okurigana'
+#load_okurigana
 # ok = Yamafuda.find_or_create_by(name: 'okurigana yamafuda')
 # 
 # ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).inject({}){|p,k|
@@ -113,3 +113,30 @@ load_okurigana
 # }.map{|f,b|
 #   Fuda.create(front: f, back: "#{b[:kun].join(', ')}\n#{b[:meaning]}").tap{|fuda| fuda.kanji_ids = Array(b[:kanji]) }
 # }
+
+if Edict.count == 0
+  lines = IO.readlines('./public/edict.utf8')
+  lines.shift
+  lines.each_slice(1000){|li|
+    li.each{|l|
+      puts l
+      l =~ /^(\S\S*)\s*(?:\[([^\]]*)\])?\s*\/(.*\/)$/
+      lit,rea,mea = [$1,$2,$3]
+      mea = rea && rea = nil if mea.nil?
+      mea = mea.gsub('/(', "\n(").gsub(/\/$/, '').gsub('/', '; ').gsub(/(?:^\([^)]*\)\s*)*\(\d+\)\s*/, '')
+      Edict.create(literal: lit, reading: rea, meanings: mea)
+    }
+  }
+end
+
+ok = Yamafuda.find_or_create_by(name: 'okurigana kanji')
+#if ok.fuda.count == 0
+  ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).map{|k|
+    k.kun.split(/\s*,\s*/).keep_if{|s| s.include?('.')}.map{|okuri|
+      ed = Edict.find_by(literal: [k.literal, okuri.split('.').last].join)
+      next unless ed.present?
+      Fuda.create(front: ed.literal, back: "#{ed.reading}\n#{ed.meanings}").tap{|f| f.kanji = Array(k) }
+    }.compact
+  }
+#end
+
