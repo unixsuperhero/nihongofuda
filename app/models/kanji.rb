@@ -8,4 +8,8 @@ class Kanji < ActiveRecord::Base
   has_many :radicals, through: :kanji_radicals
 
   attr_accessor :kun_arr, :on_arr, :meaning_arr
+
+  scope :relevant, -> { where(grade: [*1..8]) }
+  scope :stroke, -> { order(:strokes,:grade,:frequency) }
+  scope :grade, -> { order(:grade,:strokes,:frequency) }
 end

@@ -1,0 +1,68 @@
+
+.wrapper
+  .kanji_list
+  .kanji_info
+  .front
+    Yamafuda:
+    = text_field_tag :yamafuda
+  .front
+    Front:
+    = text_area_tag :front, '', style: 'height: 6em'
+  .back
+    Back:
+    = text_area_tag :back, '', style: 'height: 6em'
+  .back
+    = button_tag :save, id: 'save'
+  .grade_container
+    Show Grades:
+    - ([*1..6] << 8).each do |grade|
+      .grade
+        %label{for: grade}
+          = check_box_tag grade, grade, checked: true
+          = grade
+  .kanji_container
+    - current_strokes = 0
+    - kanji.each do |k|
+      - if k.strokes != current_strokes
+        - current_strokes += 1
+        %h4= k.strokes
+      %span.kanji
+        %ruby
+          .id= k.id
+          .grade Grade: #{k.grade}
+          .frequency Frequency: #{k.frequency}
+          .strokes Strokes: #{k.strokes}
+          %h4= k.literal
+          .kun_reading= k.kun
+          .on_reading= k.on
+          .meanings= k.meanings
+
+:coffee
+  $(document).on 'ready page:change', ->
+    show_info = (e) ->
+      kanji = $(e.currentTarget)
+      $('.kanji_info').html kanji.html()
+    update_front = ->
+      $('.front textarea').html $('.kanji_list h4').map((i,e) ->
+        $(e).text()
+      ).toArray().join()
+    remove_from_card = (e) ->
+      $(e.currentTarget).remove()
+      update_front()
+    add_to_card = (e) ->
+      kanji = $(e.currentTarget)
+      clone = kanji.clone()
+      clone.on 'mouseover', show_info
+      clone.on 'mousedown', remove_from_card
+      $('.kanji_list').append clone
+      update_front()
+
+    $('.kanji').on 'mouseover', show_info
+    $('.kanji').on 'mousedown', add_to_card
+    $('.grade input').on 'change', (e) ->
+      console.log 'hi'
+      grade = $(e.currentTarget).val()
+      console.log grade
+      $('.kanji_container .kanji').each (i,e) ->
+        $(e).toggle() if $(e).find('.grade').text().match(RegExp(grade))
+    $('#save').on 'click', add_to_card

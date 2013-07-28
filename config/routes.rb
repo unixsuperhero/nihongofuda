@@ -2,6 +2,7 @@ Rails4Base::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  get 'builder' => 'kanji#fuda_maker', as: :fuda_builder
   get 'random' => 'yamafuda#random', as: :random
   get 'yamafuda/:name' => 'yamafuda#show', as: :yamafuda_show
   get 'yamafuda/:name/continuous' => 'yamafuda#continuous_show', as: :yamafuda_continuous_show
