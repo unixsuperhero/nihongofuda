@@ -6,6 +6,30 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+kana_unicode_list = %w{
+          0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+  304x    　  ぁ  あ  ぃ  い  ぅ  う  ぇ  え  ぉ  お  か  が  き  ぎ  く
+  305x    ぐ  け  げ  こ  ご  さ  ざ  し  じ  す  ず  せ  ぜ  そ  ぞ  た
+  306x    だ  ち  ぢ  っ  つ  づ  て  で  と  ど  な  に  ぬ  ね  の  は
+  307x    ば  ぱ  ひ  び  ぴ  ふ  ぶ  ぷ  へ  べ  ぺ  ほ  ぼ  ぽ  ま  み
+  308x    む  め  も  ゃ  や  ゅ  ゆ  ょ  よ  ら  り  る  れ  ろ  ゎ  わ
+  309x    ゐ  ゑ  を  ん  ゔ  ゕ  ゖ  　  　   ゙     ゚  ゛  ゜  ゝ  ゞ  ゟ
+  30Ax    ゠  ァ  ア  ィ  イ  ゥ  ウ  ェ  エ  ォ  オ  カ  ガ  キ  ギ  ク
+  30Bx    グ  ケ  ゲ  コ  ゴ  サ  ザ  シ  ジ  ス  ズ  セ  ゼ  ソ  ゾ  タ
+  30Cx    ダ  チ  ヂ  ッ  ツ  ヅ  テ  デ  ト  ド  ナ  ニ  ヌ  ネ  ノ  ハ
+  30Dx    バ  パ  ヒ  ビ  ピ  フ  ブ  プ  ヘ  ベ  ペ  ホ  ボ  ポ  マ  ミ
+  30Ex    ム  メ  モ  ャ  ヤ  ュ  ユ  ョ  ヨ  ラ  リ  ル  レ  ロ  ヮ  ワ
+  30Fx    ヰ  ヱ  ヲ  ン  ヴ  ヵ  ヶ  ヷ  ヸ  ヹ  ヺ  ・  ー  ヽ  ヾ  ヿ
+}
+
+kana_set = 'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゛゜ゝゞゟ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ'
+
+# Regular Expressions
+
+okurigana = Edict.where("literal ~ '^#{kanji}[#{kana}]+$'")
+compound_a = Edict.where("literal ~ '^#{kanji}[^#{kana}]+$'")
+compound_b = Edict.where("literal ~ '^[^#{kana}]+#{kanji}$'")
+
 hira, kata = %w{ hiragana katakana }.map{|name| Yamafuda.find_or_create_by(name: name) }
 
 hira.fuda = {

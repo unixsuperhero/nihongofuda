@@ -24,3 +24,5 @@ config/test.yml
 public/uploads/
 coverage
 .DS_Store
+
+.sass-cache

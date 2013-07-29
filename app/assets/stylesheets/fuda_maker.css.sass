@@ -1,47 +1,49 @@
 
-.wrapper
+#fuda_maker
   position: absolute
   height: 100%
 
-.kanji_list
-  position: relative
-  height: 40%
-  width: 60%
-  float: left
-  display: inline
-
-.kanji_info
-  position: relative
-  height: 40%
-  width: 30%
-  float: right
-  display: inline
-
   ruby
     .reading, .id, .kun_reading, .on_reading, .meanings, .grade, .frequency, .strokes
-      display: block
+      display: none
 
-.grade_container
-  clear: both
-.front
-  clear: left
-  float: left
-.back
-  float: left
-  padding-left: 20px
+  .kanji_list
+    position: relative
+    height: 40%
+    width: 60%
+    float: left
+    display: inline
 
-.grade, .grade label
-  display: inline
+  .kanji_info
+    position: relative
+    height: 40%
+    width: 30%
+    float: right
+    display: inline
 
-.kanji_container
-  position: relative
-  overflow: scroll
-  border: solid 1px black
-  padding: 10px
-  margin: 10px
-  height: 40%
-  width: 90%
+    ruby
+      .reading, .id, .kun_reading, .on_reading, .meanings, .grade, .frequency, .strokes
+        display: block
 
-ruby
-  .reading, .id, .kun_reading, .on_reading, .meanings, .grade, .frequency, .strokes
-    display: none
+  .grade_container
+    clear: both
+
+  .front
+    clear: left
+    float: left
+
+  .back
+    float: left
+    padding-left: 20px
+
+  .grade, .grade label
+    display: inline
+
+  .kanji_container
+    position: relative
+    overflow: scroll
+    border: solid 1px black
+    padding: 10px
+    margin: 10px
+    height: 40%
+    width: 90%
