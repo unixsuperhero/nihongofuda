@@ -22,13 +22,16 @@ kana_unicode_list = %w{
   30Fx    ヰ  ヱ  ヲ  ン  ヴ  ヵ  ヶ  ヷ  ヸ  ヹ  ヺ  ・  ー  ヽ  ヾ  ヿ
 }
 
-kana_set = 'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゛゜ゝゞゟ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ'
+kana_re = 'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゛゜ゝゞゟ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ'
 
+# ----------------------------
 # Regular Expressions
+# ADD AS scopes to Edict model
+# ----------------------------
+  okuri_re = Edict.where("literal ~ '^#{kanji}[#{kana_re}]+$'")
+  compound1_re = Edict.where("literal ~ '^#{kanji}[^#{kana_re}]+$'")
+  compound2_re = Edict.where("literal ~ '^[^#{kana_re}]+#{kanji}$'")
 
-okurigana = Edict.where("literal ~ '^#{kanji}[#{kana}]+$'")
-compound_a = Edict.where("literal ~ '^#{kanji}[^#{kana}]+$'")
-compound_b = Edict.where("literal ~ '^[^#{kana}]+#{kanji}$'")
 
 hira, kata = %w{ hiragana katakana }.map{|name| Yamafuda.find_or_create_by(name: name) }
 
