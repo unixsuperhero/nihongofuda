@@ -22,7 +22,7 @@
           = grade
   .kanji_container
     - current_strokes = 0
-    - kanji.each do |k|
+    - kanji_by_stroke.each do |k|
       - if k.strokes != current_strokes
         - current_strokes += 1
         %h4= k.strokes

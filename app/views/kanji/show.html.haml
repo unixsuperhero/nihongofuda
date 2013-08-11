@@ -1,0 +1,57 @@
+
+.row-fluid
+  .span3
+    %h1= kanji.literal
+  .span9
+    %dl
+      %dt Grade:
+      %dd= kanji.grade
+
+    %dl
+      %dt Strokes:
+      %dd= kanji.strokes
+
+    %dl
+      %dt Frequency:
+      %dd #{kanji.frequency} / 2501 (#{kanji.frequency_percentage}%)
+
+    %dl
+      %dt JLPT:
+      %dd= kanji.jlpt
+
+.row-fluid
+  .span12
+    %h3 Reading
+
+    %dl
+      %dt Kunyomi
+      %dd= simple_format kanji.kun.gsub(/\s*,\s*/, "\n")
+
+    %dl
+      %dt Onyomi
+      %dd= simple_format kanji.on
+
+.row-fluid
+  .span12
+    %h3 Writing
+
+    %dl
+      %dt Kunyomi Readings with Okurigana
+      %dd= simple_format kanji.okurigana.join("\n")
+
+    %dl
+      %dt Including Okurigana
+      %dd= simple_format kanji.okurigana_literals.join("\n")
+
+    %dl
+      %dt Including Furigana
+      %dd= raw kanji.okurigana_furigana.join("<br/>")
+
+.row-fluid
+  .span12
+    %h3 Okurigana
+    - okurigana.each do |o|
+      %dl
+        %dt= o.literal
+        %dd= simple_format o.meanings
+
