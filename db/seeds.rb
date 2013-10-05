@@ -164,6 +164,6 @@ ok = Yamafuda.find_or_create_by(name: 'okurigana kanji')
       next unless ed.present?
       Fuda.create(front: ed.literal, back: "#{ed.reading}\n#{ed.meanings}").tap{|f| f.kanji = Array(k) }
     }.compact
-  }
+  }.flatten
 #end
 
