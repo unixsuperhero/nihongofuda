@@ -24,13 +24,13 @@ kana_unicode_list = %w{
 
 kana_re = 'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゛゜ゝゞゟ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ'
 
-# ----------------------------
-# Regular Expressions
-# ADD AS scopes to Edict model
-# ----------------------------
-  okuri_re = Edict.where("literal ~ '^#{kanji}[#{kana_re}]+$'")
-  compound1_re = Edict.where("literal ~ '^#{kanji}[^#{kana_re}]+$'")
-  compound2_re = Edict.where("literal ~ '^[^#{kana_re}]+#{kanji}$'")
+## # ----------------------------
+## # Regular Expressions
+## # ADD AS scopes to Edict model
+## # ----------------------------
+##   okuri_re = Edict.where("literal ~ '^#{kanji}[#{kana_re}]+$'")
+##   compound1_re = Edict.where("literal ~ '^#{kanji}[^#{kana_re}]+$'")
+##   compound2_re = Edict.where("literal ~ '^[^#{kana_re}]+#{kanji}$'")
 
 
 hira, kata = %w{ hiragana katakana }.map{|name| Yamafuda.find_or_create_by(name: name) }
@@ -125,7 +125,7 @@ rads.fuda = Radical.all.map{|r|
 #require './db/okurigana'
 #load_okurigana
 # ok = Yamafuda.find_or_create_by(name: 'okurigana yamafuda')
-# 
+#
 # ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).inject({}){|p,k|
 #   k.kun.split(/\s*,\s*/).keep_if{|s| s =~ /\./}.each{|s|
 #     parts = s.split('.')
