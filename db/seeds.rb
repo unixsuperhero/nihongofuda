@@ -148,16 +148,16 @@ if Edict.count == 0
     li.each{|l|
       puts l
       l =~ /^(\S\S*)\s*(?:\[([^\]]*)\])?\s*\/(.*\/)$/
-      lit,rea,mea = [$1,$2,$3]
-      mea = rea && rea = nil if mea.nil?
-      mea = mea.gsub('/(', "\n(").gsub(/\/$/, '').gsub('/', '; ').gsub(/(?:^\([^)]*\)\s*)*\(\d+\)\s*/, '')
-      Edict.create(literal: lit, reading: rea, meanings: mea)
+      lit,reading,meaning = [$1,$2,$3]
+      meaning = reading && reading = nil if meaning.nil?
+      meaning = meaning.gsub('/(', "\n(").gsub(/\/$/, '').gsub('/', '; ').gsub(/(?:^\([^)]*\)\s*)*\(\d+\)\s*/, '')
+      Edict.create(literal: lit, reading: reading, meanings: meaning)
     }
   }
 end
 
 ok = Yamafuda.find_or_create_by(name: 'okurigana kanji')
-#if ok.fuda.count == 0
+if ok.fuda.count == 0
   ok.fuda = Kanji.where.not(grade: [8,9,10,nil]).where("kun like '%.%'").order(:grade, :strokes, :frequency).map{|k|
     k.kun.split(/\s*,\s*/).keep_if{|s| s.include?('.')}.map{|okuri|
       ed = Edict.find_by(literal: [k.literal, okuri.split('.').last].join)
@@ -165,5 +165,19 @@ ok = Yamafuda.find_or_create_by(name: 'okurigana kanji')
       Fuda.create(front: ed.literal, back: "#{ed.reading}\n#{ed.meanings}").tap{|f| f.kanji = Array(k) }
     }.compact
   }.flatten
-#end
+end
 
+kanji = Kanji.where(grade: [*1..6]).reorder(:grade, :strokes)
+if Yamafuda.where(name: 'Day 2').count == 0
+  1.upto(51) {|day|
+    yf = Yamafuda.find_or_create_by(name: "Day #{day}")
+    knj = kanji.shift(20)
+    yf.fuda = knj.map{|k|
+      cmp = Edict.where("meanings like '%(P)'").where("literal ~ '.#{k.literal}|#{k.literal}.'").order('RANDOM()').limit(4)
+      front = [k.literal] + cmp.map(&:literal)
+      cmp_m_r = cmp.map{|c| "#{c.literal} (#{c.reading}) #{c.meanings}\n---------------" }
+      Fuda.find_or_create_by(front: front.join("\n"), back: "#{k.kun}\n#{k.on}\n#{k.meanings}\n---------------\n#{cmp_m_r.join("\n")}")
+    }
+
+  }
+end
