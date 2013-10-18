@@ -6,6 +6,7 @@ Rails4Base::Application.routes.draw do
     get '/:literal' => 'kanji#show', as: :kanji
   end
 
+  get '/search/:q' => 'search#index'
   get 'builder' => 'kanji#fuda_maker', as: :fuda_builder
   get 'random' => 'yamafuda#random', as: :random
   get 'yamafuda/:name' => 'yamafuda#show', as: :yamafuda_show
