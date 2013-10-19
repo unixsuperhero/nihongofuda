@@ -38,8 +38,7 @@
 %script{type: 'text/javascript'}
   :plain
     $(document).on('ready page:change', function() {
-      console.log('here 1');
       $('#yamafuda_list').change(function(e) {
-        $('#yamafuda_name input').val($(e.target).val())
+        $('#yamafuda_name input').val($(this).val())
       });
     });
