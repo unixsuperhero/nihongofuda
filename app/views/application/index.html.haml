@@ -6,6 +6,18 @@
 
   :markdown
 
+    #### v3
+
+    * Edict.kanjis = Edict.literal.scan(/./).map{|k| Kanji.find_by(literal: k).present? }.compact
+    * Search has clickable results that take you to Create Fuda page
+    * Upgrade to Bootstrap3
+      * Gemfile: gem 'bootstrap3-rails'
+      * assets/*/application.js: //= require bootstrap
+      * assets/*/application.css: *= require bootstrap
+    * Consider applying some Flat UI styles:
+      :!open 'http://designmodo.com/tutorials'
+      :!open 'http://designmodo.com/freebies'
+
     #### Write tests...i just wrote all that okuri/furigana code, i don't know if any pages broke
 
     ### Stories
