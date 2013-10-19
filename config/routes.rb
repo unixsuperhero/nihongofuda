@@ -4,8 +4,6 @@ Rails4Base::Application.routes.draw do
 
   devise_for :users
 
-
-
   authenticate :user do
     get '/search/:q' => 'search#index'
 
