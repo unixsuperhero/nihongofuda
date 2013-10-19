@@ -1,0 +1,20 @@
+%table.vertical-results.row-fluid.span12
+  %thead
+    %tr
+      %th Results
+  %tbody
+    - results.each do |result|
+      %tr
+        %td
+          .span2
+            .literal= link_to result.literal, new_fuda_path(result.id)
+            .reading
+              - if result.is_a?(Edict)
+                = result.reading
+              - else
+                = simple_format [result.kun,result.on].join("\n")
+          .span10
+            .meanings
+              %ol
+                - result.meanings.split(/\n/).each do |li|
+                  %li= simple_format li

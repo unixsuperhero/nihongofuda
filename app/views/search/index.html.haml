@@ -1,41 +1,20 @@
 
-%p
-  %b Original Query:
-  = query
-%p
-  %b Converted to kana:
-  = kana
-%p
-  %b Results Found:
-  = results.count
+.row_fluid
+  %p
+    %b Original Query:
+    = query
+  %p
+    %b Converted to kana:
+    = kana
+  %p
+    %b Results Found:
+    = results.count
 
-%h1 Results
+  %h1 Results
 
-%table
-  %thead
-    %tr
-      %th Literal
-      %th Reading
-      %th Meanings
-  %tbody
-    - results.each do |result|
-      %tr
-        %td= result.literal
-        %td= result.reading
-        %td= simple_format result.meanings
+  = render 'shared/terms_table', results: results
 
-%h1 Compounds
+  %h1 Compounds
 
-%table
-  %thead
-    %tr
-      %th Literal
-      %th Reading
-      %th Meanings
-  %tbody
-    - compounds.each do |result|
-      %tr
-        %td= result.literal
-        %td= result.reading
-        %td= simple_format result.meanings
+  = render 'shared/terms_table', results: compounds
 

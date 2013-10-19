@@ -1,0 +1,22 @@
+= render 'shared/terms_vertical', results: results
+
+%hr/
+
+%table.results
+  %thead
+    %tr
+      %th.span3 Literal
+      %th.span3 Reading
+      %th.span6 Meanings
+  %tbody
+    - results.each do |result|
+      %tr
+        %td.span3= link_to result.literal, new_fuda_path(result.id)
+        - if result.is_a?(Edict)
+          %td.span3= result.reading
+        - else
+          %td.span3= simple_format [result.kun,result.on].join("\n")
+        %td
+          %ol
+            - result.meanings.split(/\n/).each do |li|
+              %li= simple_format li
