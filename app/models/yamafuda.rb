@@ -1,6 +1,8 @@
 class Yamafuda < ActiveRecord::Base
   self.table_name = 'yamafuda'
 
+  belongs_to :user
+
   has_many :parent_decks, class_name: 'YamafudaYamafuda', foreign_key: :child_yamafuda_id
   has_many :parents, through: :parent_decks, source: :yamafuda
 
