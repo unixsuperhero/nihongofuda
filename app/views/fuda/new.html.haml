@@ -1,0 +1,45 @@
+
+%h1 Fuda Maker
+
+= form_for fuda, url: create_fuda_path do |f|
+  %h3 Yamafuda
+  = select_tag nil, options_from_collection_for_select(Yamafuda.all, :name, :name), include_blank: true, id: 'yamafuda_list'
+  #yamafuda_name= text_field_tag :yamafuda_name
+  %h3 Fuda
+  = f.text_area :front, rows: 12, class: 'span4'
+  = f.text_area :back, rows: 12, class: 'span4'
+  %br/
+  = f.submit
+
+%h1 Term Information
+
+%p
+  %b Literal:
+  = edict.literal
+
+%p
+  %b Reading:
+  = edict.reading
+
+%p
+  %b Kanji Details:
+  = render 'shared/terms_table', results: kanji
+
+%p
+  %b Meanings:
+  %ol
+    - edict.meanings.split(/\n/).each do |li|
+      %li= li
+
+%h1 Similar Edicts (Compounds, etc.)
+
+= render 'shared/terms_table', results: similar
+
+%script{type: 'text/javascript'}
+  :plain
+    $(document).on('ready page:change', function() {
+      console.log('here 1');
+      $('#yamafuda_list').change(function(e) {
+        $('#yamafuda_name input').val($(e.target).val())
+      });
+    });

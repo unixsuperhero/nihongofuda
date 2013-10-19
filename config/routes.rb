@@ -4,11 +4,21 @@ Rails4Base::Application.routes.draw do
 
   devise_for :users
 
+
+
+  authenticate :user do
+    get '/search/:q' => 'search#index'
+
+    scope :build do
+      get '/:edict_id' => 'fuda#new', as: :new_fuda
+      post '/:edict_id/create' => 'fuda#create', as: :create_fuda
+    end
+  end
+
   scope :kanji do
     get '/:literal' => 'kanji#show', as: :kanji
   end
 
-  get '/search/:q' => 'search#index'
   get 'builder' => 'kanji#fuda_maker', as: :fuda_builder
   get 'random' => 'yamafuda#random', as: :random
   get 'yamafuda/:name' => 'yamafuda#show', as: :yamafuda_show
