@@ -40,17 +40,17 @@
 :coffee
   $(document).on 'ready page:change', ->
     show_info = (e) ->
-      kanji = $(e.currentTarget)
+      kanji = $(this)
       $('.kanji_info').html kanji.html()
     update_front = ->
       $('.front textarea').html $('.kanji_list h4').map((i,e) ->
         $(e).text()
       ).toArray().join()
     remove_from_card = (e) ->
-      $(e.currentTarget).remove()
+      $(this).remove()
       update_front()
     add_to_card = (e) ->
-      kanji = $(e.currentTarget)
+      kanji = $(this)
       clone = kanji.clone()
       clone.on 'mouseover', show_info
       clone.on 'mousedown', remove_from_card
@@ -61,7 +61,7 @@
     $('.kanji').on 'mousedown', add_to_card
     $('.grade input').on 'change', (e) ->
       console.log 'hi'
-      grade = $(e.currentTarget).val()
+      grade = $(this).val()
       console.log grade
       $('.kanji_container .kanji').each (i,e) ->
         $(e).toggle() if $(e).find('.grade').text().match(RegExp(grade))
