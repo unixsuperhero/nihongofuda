@@ -23,7 +23,7 @@
 
 %p
   %b Kanji Details:
-  = render 'shared/terms_table', results: kanji
+  = render 'shared/terms_vertical', results: kanji
 
 %p
   %b Meanings:
@@ -33,7 +33,7 @@
 
 %h1 Similar Edicts (Compounds, etc.)
 
-= render 'shared/terms_table', results: similar
+= render 'shared/terms_vertical', results: similar
 
 %script{type: 'text/javascript'}
   :plain
