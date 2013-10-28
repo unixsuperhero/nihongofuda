@@ -7,17 +7,77 @@
     = csrf_meta_tags
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
   %body
-    .container
+    .container.pull-right
       .row
-        .span3
-          %nav
-            %h3 Yamafuda (Decks)
-            %ul
-              - all_yamafuda.each do |yf|
-                %li
-                  = yf.name
-                  = link_to "(view)", yamafuda_show_url(yf.name)
-                  = link_to "(random)", yamafuda_random_url(yf.name)
+        %ul.nav.span12
+          %li.span2
+            %a(href="#") Basics
+            %div.span6
+              .nav-column
+                %h3 Kana
+                %ul
+                  - basic_decks.each do |yf|
+                    %li
+                      = yf.name
+                      = link_to "Review", yamafuda_show_url(yf.name)
+                      = link_to "Study", yamafuda_random_url(yf.name)
+
+          %li.span2
+            %a(href="#") Kanji
+            %div.span8
+              .nav-column
+                %h3 Kanji
+                %ul
+                  - kanji_decks.each do |yf|
+                    %li
+                      = "Grade #{yf.name.slice(/\d+/)}"
+                      = link_to "Review", yamafuda_show_url(yf.name)
+                      = link_to "Study", yamafuda_random_url(yf.name)
+
+              .nav-column
+                %h3 Kanji Kun Readings
+                %ul
+                  - kanji_kun_decks.each do |yf|
+                    %li
+                      = "Grade #{yf.name.slice(/\d+/)}"
+                      = link_to "Review", yamafuda_show_url(yf.name)
+                      = link_to "Study", yamafuda_random_url(yf.name)
+
+              .nav-column
+                %h3 Kanji Meanings
+                %ul
+                  - kanji_meaning_decks.each do |yf|
+                    %li
+                      = "Grade #{yf.name.slice(/\d+/)}"
+                      = link_to "Review", yamafuda_show_url(yf.name)
+                      = link_to "Study", yamafuda_random_url(yf.name)
+          %li.span2
+            %a(href="#") Daily SRS
+            %div.span8
+              - srs_decks.each_slice((srs_decks.count / 3) + 1) do |slice|
+                .nav-column
+                  %ul
+                    - slice.each do |yf|
+                      %li
+                        = yf.name
+                        = link_to "Review", yamafuda_show_url(yf.name)
+                        = link_to "Study", yamafuda_random_url(yf.name)
+          %li.span2
+            %a(href="#") Your Decks
+            %div.span8
+              - your_decks.each_slice((your_decks.count / 4) + 1) do |slice|
+                .nav-column
+                  %ul
+                    - slice.each do |yf|
+                      %li
+                        = yf.name
+                        = link_to "Review", yamafuda_show_url(yf.name)
+                        = link_to "Study", yamafuda_random_url(yf.name)
+          %li.nav-search
+            = form_tag search_path do |f|
+              %input{:placeholder => "Search...", :type => "text", name: :q}/
+              %input{:type => "submit", :value => ""}/
+      .row
         .span9.main_container
           = yield
 

@@ -6,6 +6,7 @@ Nihongofuda::Application.routes.draw do
 
   authenticate :user do
     get '/search/:q' => 'search#index'
+    post '/search' => 'search#index', as: :search
 
     scope :build do
       get '/:edict_id' => 'fuda#new', as: :new_fuda
