@@ -4,7 +4,8 @@ class YamafudaController < ApplicationController
   expose(:page) { (params[:page] || 1).to_i }
   expose(:page_offset) { (page - 1) * 10 }
   expose(:yamafuda) { Yamafuda.find_by(name: params[:name]) }
-  expose(:fuda_page) { yamafuda.all_fuda.limit(10).offset(page_offset) }
+  expose(:fuda_page) { yamafuda.fuda.id_asc.limit(10).offset(page_offset) }
+  expose(:fuda_count) { yamafuda.fuda.count }
 
   expose(:random_yamafuda) { yamafuda || Yamafuda.usable.order('random()').first }
   expose(:random_card) { random_yamafuda && Fuda.where(id: random_yamafuda.fuda_ids).order('random()').first }
@@ -12,7 +13,11 @@ class YamafudaController < ApplicationController
   expose(:fuda) { yamafuda.fuda.find_by(id: params[:id]) }
 
   def continuous_show
-    render layout: nil
+    render json: {
+      current_page: page,
+      last_page: (page * 10) >= fuda_count,
+      content: render_to_string(layout: nil) || ''
+    }
   end
 
   private

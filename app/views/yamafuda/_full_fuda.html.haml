@@ -1,4 +1,4 @@
-- fuda_page.each do |fuda|
+- fuda_page.each_with_index do |fuda,index|
   .row
     .span5.fuda
       .row
@@ -14,6 +14,7 @@
           -# .radicals= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
       .row
         .pull-right Front
+        .pull-left= "Page ##{page} (#{index + 1}/#{fuda_page.count})"
 
     .span5.fuda
       .row
@@ -26,3 +27,5 @@
           .back= simple_format fuda.back
       .row
         .pull-right Back
+        .pull-left= "Page ##{page} (#{index + 1}/#{fuda_page.count})"
+
