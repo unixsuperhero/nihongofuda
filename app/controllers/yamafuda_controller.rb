@@ -1,5 +1,5 @@
 class YamafudaController < ApplicationController
-  before_action :track_random_url, only: :random
+  before_action :track_quiz_url, only: :quiz
 
   expose(:page) { (params[:page] || 1).to_i }
   expose(:page_offset) { (page - 1) * 10 }
@@ -34,7 +34,7 @@ class YamafudaController < ApplicationController
     }
   end
 
-  def track_random_url
-    cookies[:random_url] = params[:name].present? && yamafuda_random_url(params[:name]) || random_url
+  def track_quiz_url
+    cookies[:quiz_url] = params[:name].present? && quiz_url(params[:name]) || any_quiz_url
   end
 end

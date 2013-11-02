@@ -18,7 +18,11 @@ Nihongofuda::Application.routes.draw do
     get '/:literal' => 'kanji#show', as: :kanji
   end
 
+  get '/quiz' => 'yamafuda#quiz', as: :any_quiz
+
   scope :deck do
+    get '/:name/quiz' => 'yamafuda#quiz', as: :quiz
+    get '/:name/quiz/:id/flip' => 'yamafuda#flip', as: :quiz_flip
     get '/:name/board' => 'yamafuda#board', as: :board
     get '/:name/board/study' => 'yamafuda#study_board', as: :study_board
 

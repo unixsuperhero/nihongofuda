@@ -1,6 +1,6 @@
 
 %h3 #{fuda.front} Front/Back
-= link_to cookies[:random_url] do
+= link_to cookies[:quiz_url] do
   .fuda
     .row
       .pull-left
@@ -14,7 +14,7 @@
         .front= simple_format fuda.front
         -# %h2= fuda.kanji.flat_map(&:radicals).map(&:literal).join(' ')
 
-= link_to cookies[:random_url] do
+= link_to cookies[:quiz_url] do
   .fuda
     .row
       .pull-right

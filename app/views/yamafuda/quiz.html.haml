@@ -2,12 +2,12 @@
 %h3 #{random_yamafuda.name} Random
 
 - if random_card.blank?
-  = link_to cookies[:random_url] do
+  = link_to cookies[:quiz_url] do
     .fuda
       .row.text-center
         The '#{random_yamafuda.name}' deck doesn't have any cards
 - else
-  = link_to yamafuda_flip_url(name: random_yamafuda.name, id: random_card.id) do
+  = link_to quiz_flip_url(name: random_yamafuda.name, id: random_card.id) do
     .fuda
       .row
         .pull-right
