@@ -70,7 +70,7 @@ group :development, :test do
   #gem 'fabrication', '0.9.5'
   #gem 'rspec-rails'
   #gem 'capybara'
-  #gem 'annotate'
+  gem 'annotate'
   #gem 'database_cleaner'
 
   # HUGE Time Saver: preload the rails env
