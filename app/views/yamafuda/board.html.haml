@@ -1,0 +1,13 @@
+
+- unless params.has_key?(:continuous)
+  %h3= yamafuda.name
+  .show_page 1
+  .show_link= continuous_board_path(yamafuda.name,true)
+
+= render 'grid', yamafuda: yamafuda, page: page, fuda_page: fuda_page, fuda_view: 'fuda/front'
+-# fuda_page.each_slice(3) do |slice|
+  .row-fluid
+    - slice.each do |fuda|
+      .fuda.span4
+        = render 'fuda/front', yamafuda: yamafuda, fuda: fuda, page: page
+

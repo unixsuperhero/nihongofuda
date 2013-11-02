@@ -1,0 +1,5 @@
+- fuda_page.each_slice(3) do |slice|
+  .row-fluid
+    - slice.each do |fuda|
+      .fuda.span4
+        = render fuda_view, yamafuda: yamafuda, fuda: fuda, page: page

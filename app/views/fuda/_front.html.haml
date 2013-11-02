@@ -1,0 +1,13 @@
+.row-fluid
+  .pull-left
+    %h4= fuda.id
+  .pull-right
+    %h4= yamafuda.name
+.row-fluid
+  .span1 &nbsp;
+.row-fluid
+  .text-center
+    .front= simple_format fuda.front
+.row-fluid
+  .pull-right Front
+  .pull-left= "Page ##{page}"

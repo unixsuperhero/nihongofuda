@@ -1,0 +1,11 @@
+.row
+  .pull-right
+    %h5= yamafuda.name
+.row
+  %h3.text-center= fuda.front
+.row
+  .text-center
+    .back= simple_format fuda.back
+.row
+  .pull-right Back
+  .pull-left= "Page ##{page}"

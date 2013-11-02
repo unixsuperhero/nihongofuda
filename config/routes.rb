@@ -18,6 +18,14 @@ Nihongofuda::Application.routes.draw do
     get '/:literal' => 'kanji#show', as: :kanji
   end
 
+  scope :deck do
+    get '/:name/board' => 'yamafuda#board', as: :board
+    get '/:name/board/study' => 'yamafuda#study_board', as: :study_board
+
+    get '/:name/board/:continuous' => 'yamafuda#board', as: :continuous_board
+    get '/:name/board/study/:continuous' => 'yamafuda#study_board', as: :continuous_study_board
+  end
+
   get 'builder' => 'kanji#fuda_maker', as: :fuda_builder
   get 'random' => 'yamafuda#random', as: :random
   get 'yamafuda/:name' => 'yamafuda#show', as: :yamafuda_show
