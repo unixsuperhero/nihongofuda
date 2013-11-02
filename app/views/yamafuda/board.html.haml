@@ -4,7 +4,7 @@
   .show_page 1
   .show_link= continuous_board_path(yamafuda.name,true)
 
-= render 'grid', yamafuda: yamafuda, page: page, fuda_page: fuda_page, fuda_view: 'fuda/front'
+= render 'grid', fuda_view: 'fuda/front'
 -# fuda_page.each_slice(3) do |slice|
   .row-fluid
     - slice.each do |fuda|

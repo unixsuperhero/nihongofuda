@@ -8,14 +8,7 @@
         The '#{random_yamafuda.name}' deck doesn't have any cards
 - else
   = link_to quiz_flip_url(name: random_yamafuda.name, id: random_card.id) do
-    .fuda
-      .row
-        .pull-right
-          %h4= random_yamafuda.name
-      .row
-        .span1 &nbsp;
-      .row
-        .text-center
-          .front= simple_format random_card.front
-          -# %h2= random_card.kanji.flat_map(&:radicals).map(&:literal).join(' ')
+    .row-fluid
+      .fuda.span12
+        = render 'fuda/front', yamafuda: random_yamafuda, fuda: random_card
 
