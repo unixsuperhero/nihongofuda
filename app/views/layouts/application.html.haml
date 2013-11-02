@@ -19,8 +19,11 @@
                   - basic_decks.each do |yf|
                     %li
                       = yf.name
-                      = link_to "Review", yamafuda_show_url(yf.name)
-                      = link_to "Study", yamafuda_random_url(yf.name)
+                      (
+                      = link_to "Front", board_url(yf.name)
+                      = link_to "Back", study_board_url(yf.name)
+                      = link_to "Quiz", yamafuda_random_url(yf.name)
+                      )
 
           %li.span2
             %a(href="#") Kanji
@@ -31,8 +34,11 @@
                   - kanji_decks.each do |yf|
                     %li
                       = "Grade #{yf.name.slice(/\d+/)}"
-                      = link_to "Review", yamafuda_show_url(yf.name)
-                      = link_to "Study", yamafuda_random_url(yf.name)
+                      (
+                      = link_to "Front", board_url(yf.name)
+                      = link_to "Back", study_board_url(yf.name)
+                      = link_to "Quiz", yamafuda_random_url(yf.name)
+                      )
 
               .nav-column
                 %h3 Kanji Kun Readings
@@ -40,8 +46,11 @@
                   - kanji_kun_decks.each do |yf|
                     %li
                       = "Grade #{yf.name.slice(/\d+/)}"
-                      = link_to "Review", yamafuda_show_url(yf.name)
-                      = link_to "Study", yamafuda_random_url(yf.name)
+                      (
+                      = link_to "Front", board_url(yf.name)
+                      = link_to "Back", study_board_url(yf.name)
+                      = link_to "Quiz", yamafuda_random_url(yf.name)
+                      )
 
               .nav-column
                 %h3 Kanji Meanings
@@ -49,8 +58,11 @@
                   - kanji_meaning_decks.each do |yf|
                     %li
                       = "Grade #{yf.name.slice(/\d+/)}"
-                      = link_to "Review", yamafuda_show_url(yf.name)
-                      = link_to "Study", yamafuda_random_url(yf.name)
+                      (
+                      = link_to "Front", board_url(yf.name)
+                      = link_to "Back", study_board_url(yf.name)
+                      = link_to "Quiz", yamafuda_random_url(yf.name)
+                      )
           %li.span2
             %a(href="#") Daily SRS
             %div.span8
@@ -60,8 +72,11 @@
                     - slice.each do |yf|
                       %li
                         = yf.name
-                        = link_to "Review", yamafuda_show_url(yf.name)
-                        = link_to "Study", yamafuda_random_url(yf.name)
+                        (
+                        = link_to "Front", board_url(yf.name)
+                        = link_to "Back", study_board_url(yf.name)
+                        = link_to "Quiz", yamafuda_random_url(yf.name)
+                        )
           %li.span2
             %a(href="#") Your Decks
             %div.span8
@@ -71,8 +86,11 @@
                     - slice.each do |yf|
                       %li
                         = yf.name
-                        = link_to "Review", yamafuda_show_url(yf.name)
-                        = link_to "Study", yamafuda_random_url(yf.name)
+                        (
+                        = link_to "Front", board_url(yf.name)
+                        = link_to "Back", study_board_url(yf.name)
+                        = link_to "Quiz", yamafuda_random_url(yf.name)
+                        )
           %li.nav-search
             = form_tag search_path do |f|
               %input{:placeholder => "Search...", :type => "text", name: :q}/
