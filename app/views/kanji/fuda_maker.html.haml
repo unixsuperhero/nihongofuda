@@ -62,7 +62,9 @@
     $('.grade input').on 'change', (e) ->
       console.log 'hi'
       grade = $(this).val()
+      showOrHide = $(this).is(':checked')
       console.log grade
       $('.kanji_container .kanji').each (i,e) ->
-        $(e).toggle() if $(e).find('.grade').text().match(RegExp(grade))
+        if $(e).find('.grade').text().match(RegExp(grade))
+          $(e).toggle(showOrHide)
     $('#save').on 'click', add_to_card
